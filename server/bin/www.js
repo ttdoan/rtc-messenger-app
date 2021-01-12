@@ -1,20 +1,15 @@
-#!/usr/bin/env node
+import app from "../app";
+import http from "http";
+import dotenv from "dotenv";
 
 /* Sets up the environment variables from your .env file*/
-require("dotenv").config();
-
-/**
- * Module dependencies.
- */
-
-var app = require("../app");
-var http = require("http");
+dotenv.config();
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || "3001");
+var port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
 
 /**
