@@ -12,6 +12,12 @@ const useStyles = makeStyles({
   root: {
     marginTop: "4%",
   },
+  label: {
+    color: "#B0B0B0",
+  },
+  button: {
+    color: "#3A8DFF",
+  },
 });
 
 export default function Header({ msg, link, url }) {
@@ -34,14 +40,16 @@ export default function Header({ msg, link, url }) {
     >
       <Grid item container justify="flex-end" alignContent="center">
         <Grid item>
-          <Typography className={`${fontClasses.root} `}>{msg}</Typography>
+          <Typography className={`${fontClasses.general} ${classes.label}`}>
+            {msg}
+          </Typography>
         </Grid>
       </Grid>
       <Grid item container xs={5} justify="center">
         <Button
           onClick={handleClick}
           size="large"
-          className={`${fontClasses.headerLink} ${buttonClasses.root}`}
+          className={`${fontClasses.general} ${fontClasses.bold} ${classes.button} ${buttonClasses.root}`}
         >
           {link}
         </Button>

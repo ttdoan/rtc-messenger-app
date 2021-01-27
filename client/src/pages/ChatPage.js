@@ -1,18 +1,26 @@
-import React, { useState } from "react";
-import Contacts from "../components/Contacts";
+import React, { useEffect, useState } from "react";
+import ChatSideBar from "../components/ChatSideBar";
+import ChatActive from "../components/ChatActive";
+import { SelectedContext, SocketProvider } from "../context";
 
 // Material UI
 import Grid from "@material-ui/core/Grid";
 
 export default function ChatPage() {
-  const [selectedContact, setSelectedContact] = useState(null);
+  const [selected, setSelected] = useState({});
 
   return (
-    <Grid container>
-      <Grid container item>
-        <Contacts />
-      </Grid>
-      <Grid item></Grid>
-    </Grid>
+    <SocketProvider>
+      <SelectedContext.Provider value={{ selected, setSelected }}>
+        <Grid container>
+          <Grid item xs={4}>
+            <ChatSideBar />
+          </Grid>
+          <Grid item xs={8}>
+            <ChatActive />
+          </Grid>
+        </Grid>
+      </SelectedContext.Provider>
+    </SocketProvider>
   );
 }

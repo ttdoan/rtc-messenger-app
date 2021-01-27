@@ -1,21 +1,10 @@
-// Actions
-const LOGIN = "LOGIN";
+import { combineReducers } from "redux";
+import user from "./user";
+import site from "./site";
 
-// Action Creators
-
-export const logIn = (token) => ({
-  type: LOGIN,
-  token,
+const rootReducer = combineReducers({
+  user,
+  site,
 });
 
-// Reducers
-const INITIAL_STATE = {};
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case LOGIN:
-      return Object.assign({}, { ...state }, { token: action.token });
-
-    default:
-      return state;
-  }
-}
+export default rootReducer;

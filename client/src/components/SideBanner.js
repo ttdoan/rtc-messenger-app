@@ -31,8 +31,8 @@ const useStyles = makeStyles({
     },
   },
   msg: {
-    position: "absolute",
-    height,
+    color: "white",
+    fontSize: "26px",
   },
 });
 
@@ -55,7 +55,10 @@ export default function SideBanner() {
         </Grid>
         <Grid container item justify="center">
           <Grid item xs={7}>
-            <Typography className={fontClasses.banner} align="center">
+            <Typography
+              className={`${fontClasses.general} ${classes.msg}`}
+              align="center"
+            >
               Converse with anyone with any language
             </Typography>
           </Grid>

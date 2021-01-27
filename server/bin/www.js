@@ -1,6 +1,10 @@
 import app from "../app";
 import http from "http";
 import dotenv from "dotenv";
+import io from "socket.io";
+// TODO: need to fix later...
+// import WebSockets from "../WebSockets";
+import events from "../../common/events";
 
 /* Sets up the environment variables from your .env file*/
 dotenv.config();
@@ -17,6 +21,43 @@ app.set("port", port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Initiate socket connection
+ */
+
+global.online = [];
+global.io = io(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+// global.io.on("connection", WebSockets.connection);
+global.io.on("connection", (socket) => {
+  socket.on("disconnect", () => {
+    global.online = global.online.filter(
+      (user) => user.socket.id !== socket.id
+    );
+  });
+
+  socket.on(events.CONNECT, ({ username }) => {
+    console.log("Connected user: ", username);
+    global.online.push({
+      username,
+      socket,
+    });
+  });
+
+  socket.on(events.JOIN_ROOM, (room) => {
+    console.log("user is trying to connect to rooms: ", room);
+    socket.join(room);
+  });
+
+  socket.on(events.TYPING, ({ typing, roomId }) => {
+    socket.to(roomId).emit(events.TYPING, { typing, roomId });
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.

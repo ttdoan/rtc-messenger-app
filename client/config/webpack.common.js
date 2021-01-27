@@ -2,6 +2,7 @@ const paths = require("./paths");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
   /**
@@ -59,6 +60,13 @@ module.exports = {
       favicon: paths.static + "/favicon.ico",
       filename: "index.html", // output file
     }),
+
+    /**
+     * ESLintPlugin
+     *
+     * Generates an HTML file from a template.
+     */
+    new ESLintPlugin(),
   ],
 
   /**
@@ -76,7 +84,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"],
+        use: ["babel-loader"],
       },
 
       /**

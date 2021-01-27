@@ -4,8 +4,14 @@ import Header from "../components/Header";
 import GridInput from "../components/GridInput";
 import { useFormik } from "formik";
 import validator from "validator";
+import { useDispatch } from "react-redux";
+import { login } from "../services/userServices";
+import { useHistory } from "react-router-dom";
+import { setSnackBar } from "../ducks/site";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,9 +41,20 @@ export default function LoginPage() {
     return errors;
   }
 
-  function handleSubmit() {
-    // TODO: add API call..
-    console.log("handle login");
+  async function handleSubmit(values) {
+    const { email, password } = values;
+
+    try {
+      await dispatch(login(email, password));
+      history.push("/chat");
+    } catch (err) {
+      dispatch(
+        setSnackBar({
+          msg: err.message,
+          severity: "error",
+        })
+      );
+    }
   }
 
   const header = (
@@ -52,7 +69,12 @@ export default function LoginPage() {
       submitBtnLabel="Login"
     >
       <GridInput label="E-mail address" name="email" formik={formik} />
-      <GridInput label="Password" name="password" formik={formik} />
+      <GridInput
+        label="Password"
+        name="password"
+        formik={formik}
+        type="password"
+      />
     </AuthPage>
   );
 }

@@ -9,10 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
-  gridContainer: {
-    margin: "auto",
-    width: "60%",
-  },
   formContainer: {
     height: "100%",
     marginTop: "10%",
@@ -37,7 +33,7 @@ export default function AuthenticationPage({
   const fontClasses = useFontStyles();
 
   return (
-    <Grid container className={classes.gridContainer}>
+    <Grid container>
       <SideBanner />
       <Grid container item xs={7} justify="center">
         <Grid
@@ -57,14 +53,17 @@ export default function AuthenticationPage({
             <Grid container item xs={7}>
               <form onSubmit={formik.handleSubmit} className={classes.form}>
                 <Grid item className={classes.intro}>
-                  <Typography variant="h4" className={`${fontClasses.intro}`}>
+                  <Typography
+                    variant="h4"
+                    className={`${fontClasses.base} ${fontClasses.bold}`}
+                  >
                     {intro}
                   </Typography>
                 </Grid>
                 {children}
                 <Grid container item justify="center">
                   <Button
-                    className={`${buttonClasses.root} ${buttonClasses.submit} ${fontClasses.submit}`}
+                    className={`${buttonClasses.root} ${buttonClasses.submit} ${fontClasses.base} ${fontClasses.bold}`}
                     type="submit"
                   >
                     {submitBtnLabel}

@@ -4,14 +4,19 @@ import Header from "../components/Header";
 import GridInput from "../components/GridInput";
 import { useFormik } from "formik";
 import validator from "validator";
+import { signup } from "../services/userServices";
+import { setSnackBar } from "../ducks/site";
+import { useDispatch } from "react-redux";
 
 export default function SignupPage() {
+  const dispatch = useDispatch();
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+  };
   const formik = useFormik({
-    initialValues: {
-      username: "",
-      email: "",
-      password: "",
-    },
+    initialValues,
     validateOnBlur: true,
     validateOnChange: false,
     validate: formValidate,
@@ -40,9 +45,25 @@ export default function SignupPage() {
     return errors;
   }
 
-  function handleSubmit() {
-    // TODO: add API call...
-    console.log("handle signup");
+  async function handleSubmit(values) {
+    const { username, email, password } = values;
+    try {
+      await dispatch(signup(username, email, password));
+      dispatch(
+        setSnackBar({
+          msg: "Registration successful! You may log into your account now.",
+          severity: "success",
+        })
+      );
+      formik.resetForm();
+    } catch (err) {
+      dispatch(
+        setSnackBar({
+          msg: err.message,
+          severity: "error",
+        })
+      );
+    }
   }
 
   const header = (
@@ -58,7 +79,12 @@ export default function SignupPage() {
     >
       <GridInput label="Username" name="username" formik={formik} />
       <GridInput label="E-mail address" name="email" formik={formik} />
-      <GridInput label="Password" name="password" formik={formik} />
+      <GridInput
+        label="Password"
+        name="password"
+        formik={formik}
+        type="password"
+      />
     </AuthPage>
   );
 }

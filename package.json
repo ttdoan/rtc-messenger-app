@@ -4,7 +4,7 @@
   "description": "Simple messenger app using Sockets for real-time messaging.",
   "main": "postcss.config.js",
   "scripts": {
-    "dev": "concurrently 'cd client && npm run dev' 'cd server && npm run dev'"
+    "dev": "concurrently \"cd ./client && npm run dev\" \"cd ./server && npm run dev\""
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,14 @@
   },
   "homepage": "https://github.com/ttdoan/hatchways-2020-messenger-app#readme",
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1"
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-webpack-plugin": "^2.4.1",
+    "webpack": "^5.15.0"
   }
 }

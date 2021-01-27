@@ -1,34 +1,17 @@
 import { makeStyles } from "@material-ui/core";
 
 const useFontStyles = makeStyles({
-  root: {
-    fontFamily: "Open Sans",
-    color: "#B0B0B0",
-    fontWeight: 400,
-  },
   base: {
     fontFamily: "Open Sans",
+  },
+  general: {
+    fontFamily: "Open Sans",
     fontWeight: 400,
   },
-  intro: {
-    fontFamily: "Open Sans",
-    color: "#000",
-    fontWeight: 600,
-  },
-  banner: {
-    fontFamily: "Open Sans",
-    color: "white",
+  regular: {
     fontWeight: 400,
-    fontSize: "26px",
   },
-  headerLink: {
-    fontFamily: "Open Sans",
-    color: "#3A8DFF",
-    fontWeight: 600,
-  },
-  submit: {
-    fontFamily: "Open Sans",
-    color: "white",
+  bold: {
     fontWeight: 600,
   },
 });

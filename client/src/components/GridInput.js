@@ -9,7 +9,7 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
 
-const useGridInputStyles = makeStyles({
+const useStyles = makeStyles({
   root: {
     height: "15%",
   },
@@ -17,6 +17,9 @@ const useGridInputStyles = makeStyles({
     "&:hover:not(.Mui-disabled)::before": {
       borderBottomColor: "#3A8DFF",
     },
+  },
+  label: {
+    color: "#B0B0B0",
   },
 });
 
@@ -28,14 +31,14 @@ function FieldError({ msg }) {
   }
 
   return (
-    <Typography color="error" variant="caption" className={fontClasses.base}>
+    <Typography color="error" variant="caption" className={fontClasses.general}>
       {msg}
     </Typography>
   );
 }
 
 export default function GridInput({ formik, label, name, ...rest }) {
-  const classes = useGridInputStyles();
+  const classes = useStyles();
   const fontClasses = useFontStyles();
 
   const hasError =
@@ -48,16 +51,19 @@ export default function GridInput({ formik, label, name, ...rest }) {
       direction="column"
       alignContent="flex-start"
       className={`${classes.root}`}
-      {...rest}
     >
-      <InputLabel className={fontClasses.root}>{label}</InputLabel>
+      <InputLabel className={`${fontClasses.general} ${classes.label}`}>
+        {label}
+      </InputLabel>
       <Input
         name={name}
-        className={`${classes.underline} ${fontClasses.base}`}
+        className={`${fontClasses.general} ${classes.underline}`}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         value={formik.values[name]}
         error={hasError}
         fullWidth
+        {...rest}
       ></Input>
       <FieldError msg={formik.errors[name]} />
     </Grid>
